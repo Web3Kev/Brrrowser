@@ -176,7 +176,7 @@ body.light-mode nav a:hover {
   <!-- Scripts -->
   <script src="modeToggle.js"></script>
   <script src="featuredScript.js"></script>
-  <script>
+  <!-- <script>
     // Load pages dynamically and update active nav link
 document.querySelectorAll("nav a").forEach(link => {
   link.addEventListener("click", async (e) => {
@@ -271,6 +271,96 @@ window.toggleCode = function(button) {
 // Initial load
 loadInitialPage();
 });
-  </script>
+  </script> -->
+
+<script>
+let currentController = null;
+
+const pages = {
+  home: 'home.html',
+  featured: 'featured.html',
+  api: 'api.html'
+};
+
+function loadPage(pageKey) {
+  const pageFile = pages[pageKey];
+  if (!pageFile) return;
+
+  // Abort previous request if it exists
+  if (currentController) {
+    currentController.abort();
+  }
+
+  // Create a new AbortController for this fetch
+  currentController = new AbortController();
+  const signal = currentController.signal;
+
+  fetch(pageFile, { signal })
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to load");
+      return res.text();
+    })
+    .then(html => {
+      document.getElementById("page-content").innerHTML = html;
+
+      // Update active link
+      document.querySelectorAll("nav a").forEach(link => {
+        const target = link.getAttribute("data-page").replace('.html', '');
+        link.classList.toggle("active", target === pageKey);
+      });
+
+      // If it's the featured page, load/init the script
+      if (pageKey === "featured") {
+        if (typeof window.initFeaturedPage === "function") {
+          window.initFeaturedPage();
+        } else {
+          const script = document.createElement("script");
+          script.src = "featureScript.js";
+          script.onload = () => window.initFeaturedPage?.();
+          document.body.appendChild(script);
+        }
+      }
+    })
+    .catch(err => {
+      if (err.name !== 'AbortError') {
+        document.getElementById("page-content").innerHTML = "<p>Page not found.</p>";
+      }
+    });
+}
+
+function loadInitialPage() {
+  const hash = window.location.hash.slice(1) || 'home';
+  loadPage(hash);
+}
+
+// Navigation click handler
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const page = link.getAttribute("data-page").replace('.html', '');
+    window.location.hash = page;
+    loadPage(page);
+  });
+});
+
+// Handle back/forward nav
+window.addEventListener("hashchange", () => {
+  const page = window.location.hash.slice(1);
+  loadPage(page);
+});
+
+window.toggleCode = function(button) {
+  const code = button.nextElementSibling;
+  if (code.style.display === "block") {
+    code.style.display = "none";
+    button.textContent = "Show code";
+  } else {
+    code.style.display = "block";
+    button.textContent = "Hide code";
+  }
+};
+
+loadInitialPage();
+</script>
 </body>
 </html>
