@@ -36,7 +36,7 @@ window.initFeaturedPage = function () {
         </div>
         <div class="card-back">
           <p>${item.text}</p>
-          <button onclick="window.open('${item.url}', '_blank')">Visit</button>
+          <button onclick="window.open('${item.url}', '_self')">Visit</button>
         </div>
       </div>
     `;
