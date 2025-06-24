@@ -237,6 +237,7 @@ box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
   background: var(--bg);
   color: var(--fg, #000);
   max-width: 80%;
+  max-height: 100%;
   width: 400px;
   padding: 2rem;
   border-radius: 12px;
@@ -256,6 +257,8 @@ box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
   background: var(--button-bg, #222);
   color: var(--button-text, #fff);
   cursor: pointer;
+  font-weight:bolder;
+  font-size: large;
 }
 
 .modal-card .close-btn {
