@@ -1,0 +1,271 @@
+
+
+  body.light-mode {
+  --bg: #fff;
+  --fg: #111;
+  --accent: #9d9c9b;
+  --code-bg: #efebeb;
+  --code-fg: #222;
+    --code-button : rgb(141, 141, 9);
+  --button-bg: #ff9800;
+  --button-text: #fff;
+}
+
+body.dark-mode {
+  --bg: #111;
+  --fg: #eee;
+ --accent: #9d9c9b;
+  --code-bg: #232222;
+  --code-fg: #a99d9d;
+  --code-button : rgb(120, 120, 5);
+  --button-bg: #ff9800;
+  --button-text: #000;
+}
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--button-bg);
+    }
+
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    button.trigger {
+       display: block;
+    /* margin-top: 1rem; */
+    margin: 1rem auto 0 auto;
+    padding: 0.5rem 1rem;
+    background: var(--button-bg);   /* dynamic button color */
+    color: var(--button-text);
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+    .code-toggle {
+      background: none;
+      border: none;
+      color: var(--code-button);
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+      text-decoration: underline;
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      font-family: monospace;
+      padding: 0.75rem;
+      border-radius: 6px;
+      /* margin-top: 0.5rem; */
+       margin: 0.5rem auto 0;
+      display: none;
+      white-space: pre-wrap;
+      user-select: all;
+      max-width: 400px;
+       text-align: left; 
+    }
+
+    .button-block {
+      margin-bottom: 1.5rem;
+    }
+
+
+.main-div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-text {
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    padding:10px;
+}
+
+
+/* ---------------------------------------------------- */
+/*                      Toggle style                    */
+/* ---------------------------------------------------- */
+
+/* small screens --- starts*/
+.switch {
+position: relative;
+display: inline-block;
+width: 35px; 
+height: 20px; 
+z-index: 1000;
+}
+
+.switch input {
+opacity: 0; 
+width: 0; 
+height: 0; 
+}
+
+.slider {
+position: absolute;
+cursor: pointer; 
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+transition: .4s; 
+border-radius: 34px;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 18px; 
+width: 18px; 
+left: 0px; 
+bottom: 0px; 
+border-radius: 50%;
+transition: .4s;
+}
+
+input:checked + .slider:before {
+transform: translateX(15px); 
+}
+/*  small screens --- ends*/
+
+
+/*  big screens, ipad included --- starts*/
+@media (min-width: 768px) {
+
+    .switch {
+        /* top: 20px; 
+        right: 20px;  */
+        width: 60px; 
+        height: 34px; 
+    }
+    
+    .slider:before {
+    
+        height: 28px; 
+        width: 28px; 
+        left: 4px;
+        bottom:2px
+    }
+    
+    input:checked + .slider:before {
+        transform: translateX(26px); 
+    }
+}
+/*  big screens, ipad included --- ends*/
+
+
+/* ---------------------------------------------------- */
+/* light mode look : add "body.light-mode" to your style*/
+/* ---------------------------------------------------- */
+
+/* toggle style in light mode --- starts */
+body.light-mode .slider {
+    background-color: lightgray; 
+    border: 1px solid grey;
+}
+
+body.light-mode input:checked + .slider {
+    background-color: lightgray; 
+    border: 1px solid grey;
+}
+
+body.light-mode .slider:before {
+    background-color: white; 
+}
+/* toggle style in light mode --- ends */
+
+/* body style in light mode */
+body.light-mode {
+background-color: #f2f2f7;
+color: black;
+}
+
+/* arrow head style in light mode */
+body.light-mode #arrowheadPolygon
+{
+    fill: rgb(196, 196, 196);
+}
+
+/* arrow path style in light mode */
+body.light-mode #arrow
+{
+    stroke: rgb(196, 196, 196);
+}
+
+/* text "toggle this" style in light mode */
+body.light-mode .main-text {
+    border: 2px solid rgb(196, 196, 196);
+}
+
+
+
+/* ---------------------------------------------------- */
+/* Dark mode look : add "body.dark-mode" to your style*/
+/* ---------------------------------------------------- */
+
+/* toggle style in dark mode --- starts */
+body.dark-mode .slider {
+    background-color: #222224; 
+    border: 1px solid grey;
+}
+
+body.dark-mode input:checked + .slider {
+    background-color: #222224; 
+    border: 1px solid grey;
+}
+
+body.dark-mode .slider:before {
+    background-color: teal; 
+}
+/* toggle style in dark mode --- ends */
+
+/* body style in dark mode */
+body.dark-mode {
+    background-color: #1c1c1e;
+    color: lightgrey;
+}
+
+/* arrow head style in dark mode */
+body.dark-mode #arrowheadPolygon
+{
+    fill: rgb(152, 119, 1);
+}
+
+/* arrow path style in dark mode */
+body.dark-mode #arrow
+{
+    stroke: rgb(152, 119, 1);
+}
+
+/* text "toggle this" style in dark mode */
+body.dark-mode .main-text {
+    border: 2px solid rgb(152, 119, 1);
+}

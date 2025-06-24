@@ -2,311 +2,261 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brrrowser Haptic API</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brrrowser</title>
+  <link rel="stylesheet" href="./styles.css" />
   <style>
-    :root {
-      color-scheme: light dark;
-      --bg: #fff;
-      --fg: #111;
-      --accent: #3b82f6;
-      --code-bg: #f5f5f5;
-      --code-fg: #222;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111;
-        --fg: #eee;
-        --accent: #60a5fa;
-        --code-bg: #1e1e1e;
-        --code-fg: #f5f5f5;
-      }
-    }
-
+    /* Layout for header and content */
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.6;
-      padding: 2rem;
+      font-family: sans-serif;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 999;
+      /* position: relative; */
+      background: var(--bg); 
     }
 
-    h2 {
-      margin-top: 2rem;
-      font-size: 1.25rem;
-      color: var(--accent);
+    .logo {
+      font-weight: bold;
+      font-size: 24px;
     }
 
-    .section {
-      margin-bottom: 2rem;
+     .logo img {
+    height: 40px;
+  }
+
+
+  nav {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  display: flex;
+  gap: 30px; /* More spacing between items */
+  /* padding-top: 5px; */
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 16px;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1; /* Ensures vertical centering */
+  height: 20px;   /* Optional: uniform height */
+    padding-bottom: 5px;
+    border: 2px solid;
+     border-color: transparent;
+}
+
+/* Highlight active menu item */
+nav a.active {
+  border: 2px solid;
+
+}
+
+/* White border in dark mode */
+body.dark-mode nav a.active {
+  border-color: rgb(113, 110, 110);
+}
+
+/* Dark border in light mode */
+body.light-mode nav a.active {
+  border-color: #cccbcb;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* subtle glow in dark mode */
+}
+body.light-mode nav a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+    .content {
+      padding-top: 10px;
+      text-align: center;
     }
 
-    button.trigger {
-      display: block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
+    /* Ensure toggle stays in top-right over header */
+    .switch {
+      margin-left: auto;
     }
 
-    .code-toggle {
-      background: none;
-      border: none;
-      color: var(--accent);
-      cursor: pointer;
-      font-size: 0.9rem;
-      margin-top: 0.25rem;
-      text-decoration: underline;
+    .main-text {
+      margin-top: 30px;
     }
 
-    .code-block {
-      background: var(--code-bg);
-      color: var(--code-fg);
-      font-family: monospace;
-      padding: 0.75rem;
-      border-radius: 6px;
-      margin-top: 0.5rem;
-      display: none;
-      white-space: pre-wrap;
-      user-select: all;
-    }
+     @media (max-width: 750px) {
+  nav {
+    gap: 0px;
+    padding-left: 80px;
+  }
+}
 
-    .button-block {
-      margin-bottom: 1.5rem;
-    }
+    @media (max-width: 600px) {
+  nav .label {
+    display: none;
+  }
+
+  nav a {
+    padding: 8px;        /* tighter spacing */
+    font-size: 1.5rem;   /* make emoji larger */
+  }
+
+  nav {
+    gap: 0px;
+    padding-left: 80px;
+  }
+
+  header {
+    padding: 0 10px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .switch {
+    transform: scale(0.9);
+  }
+}
   </style>
 </head>
-<body>
+<body class="dark-mode">
+  <!-- Header area -->
+  <header>
+    <div class="logo"> <img src="./assets/brrrowser.png" alt="Brrrowser" /></div>
+    <nav>
+  <a data-page="home.html" title="Home">🏠 <span class="label">Home</span></a>
+  <a data-page="featured.html" title="Featured">⭐ <span class="label">Featured</span></a>
+  <a data-page="api.html" title="API">🛠️ <span class="label">API</span></a>
+</nav>
 
-  <h1>Brrrowser Haptic API</h1>
-  <a href="featured.html"><h1>Go to Featured Page</h1</a>
+    <!-- Dark mode toggle -->
+    <label class="switch" id="end">
+      <input type="checkbox" id="theme-toggle" />
+      <span class="slider"></span>
+    </label>
+  </header>
 
-  <div class="section">
-    <h2>navigator.vibrate</h2>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.vibrate(1000)">1 second vibration</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.vibrate(1000)</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.vibrate([50,300,500])">50ms + 300ms Pause + 500ms</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.vibrate([50,300,500])</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.vibrate([50,100,50,100,50,500,400,100,400,100,400,500,50,100,50,100,50])">SOS with 100ms & 500ms pauses</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.vibrate([50,100,50,100,50,500,
-        400,100,400,100,400,500,
-        50,100,50,100,50])</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.vibrate()">Stop all vibrations</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.vibrate()</div>
-    </div>
+  <!-- Main content -->
+  <div class="content" id="page-content">
+    
   </div>
 
-  <div class="section">
-    <h2>navigator.haptic <small>(Brrrowser app exclusive)</small></h2>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('selection')">Trigger "selection"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("selection");</div>
-    </div>
-
-     <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('success')">Trigger "success"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("success");</div>
-    </div>
-
-     <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('warning')">Trigger "warning"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("warning");</div>
-    </div>
-
-     <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('error')">Trigger "error"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("error");</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('light')">Trigger "light"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("light");</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('medium')">Trigger "medium"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("medium");</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('heavy')">Trigger "heavy"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("heavy");</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('rigid')">Trigger "rigid"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("rigid");</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic('soft')">Trigger "soft"</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic("soft");</div>
-    </div>
-
-    <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic([{intensity:0.8,sharpness:0.2}])">Custom transient</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic([
-        {
-          intensity:0.8,
-          sharpness:0.2
-        }
-      ]);</div>
-    </div>
-
-     <div class="button-block">
-      <button class="trigger" onclick="navigator.haptic([{intensity:0.8,sharpness:0.2, duration:500}])">Custom continuous</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">navigator.haptic([
-        {
-          intensity:0.8,
-          sharpness:0.2, 
-          duration:500
-        }
-      ]);</div>
-    </div>
-  </div>
-
-   <!-- <div class="section">
-    <h2>Custom AHAP JSON</h2>
-
-    <div class="button-block">
-      <button class="trigger" onclick="triggerAHAP()">Play: Increasing Intensity</button>
-      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
-      <div class="code-block">
-const ahap = {
-  Pattern: {
-    Version: 1,
-    Events: [
-      {
-        EventType: "HapticContinuous",
-        Time: 0,
-        EventDuration: 2.0,
-        EventParameters: [
-          { ParameterID: "HapticSharpness", ParameterValue: 0.5 }
-        ]
-      }
-    ],
-    ParameterCurves: [
-      {
-        ParameterID: "HapticIntensity",
-        Time: 0,
-        ParameterCurveControlPoints: [
-          { Time: 0.0, ParameterValue: 0.1 },
-          { Time: 2.0, ParameterValue: 1.0 }
-        ]
-      }
-    ]
-  }
-};
-navigator.haptic(JSON.stringify(ahap));
-      </div>
-    </div>
-  </div> -->
-
+  <!-- Scripts -->
+  <script src="modeToggle.js"></script>
+  <script src="featuredScript.js"></script>
   <script>
-    function toggleCode(button) {
-      const code = button.nextElementSibling;
-      if (code.style.display === "block") {
-        code.style.display = "none";
-        button.textContent = "Show code";
+    // Load pages dynamically and update active nav link
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", async (e) => {
+    const page = e.target.getAttribute("data-page");
+
+    // Highlight current link
+    document.querySelectorAll("nav a").forEach(el => el.classList.remove("active"));
+    e.target.classList.add("active");
+
+    try {
+      const response = await fetch(page);
+      const html = await response.text();
+      document.getElementById("page-content").innerHTML = html;
+    } catch (err) {
+      document.getElementById("page-content").innerHTML = "<p>Page not found.</p>";
+    }
+  });
+
+  // Available pages and their corresponding HTML files
+const pages = {
+  home: 'home.html',
+  featured: 'featured.html',
+  api: 'api.html'
+};
+
+// Load the initial page based on hash or default to home
+function loadInitialPage() {
+  const hash = window.location.hash.slice(1) || 'home';
+  loadPage(hash);
+}
+
+// Dynamically load page and update active menu
+function loadPage(pageKey) {
+  const pageFile = pages[pageKey];
+  if (!pageFile) return;
+
+  // Update content
+  fetch(pageFile)
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("page-content").innerHTML = html;
+
+      // Update active class on nav
+      document.querySelectorAll("nav a").forEach(link => {
+        const target = link.getAttribute("data-page").replace('.html', '');
+        link.classList.toggle("active", target === pageKey);
+      });
+
+      if (pageKey === "featured") {
+      // Ensure script is loaded before calling
+      if (typeof window.initFeaturedPage === "function") {
+        window.initFeaturedPage();
       } else {
-        code.style.display = "block";
-        button.textContent = "Hide code";
+        // If needed, load it dynamically
+        const script = document.createElement("script");
+        script.src = "featureScript.js";
+        script.onload = () => window.initFeaturedPage?.();
+        document.body.appendChild(script);
       }
     }
 
-    function triggerAHAP() {
-      // const myAhap = {
-      //   Pattern: {
-      //     Version: 1,
-      //     Events: [
-      //       {
-      //         EventType: "HapticContinuous",
-      //         Time: 0,
-      //         EventDuration: 2.0,
-      //         EventParameters: [
-      //           { ParameterID: "HapticSharpness", ParameterValue: 0.5 },
-      //           { ParameterID: "HapticIntensity", ParameterValue: 0.1 }
-      //         ]
-      //       }
-      //     ],
-      //     ParameterCurves: [
-      //       {
-      //         ParameterID: "HapticIntensity",
-      //         Time: 0,
-      //         ParameterCurveControlPoints: [
-      //           { Time: 0.0, ParameterValue: 0.1 },
-      //           { Time: 2.0, ParameterValue: 1.0 }
-      //         ]
-      //       }
-      //     ]
-      //   }
-      // };
-      const myAhap = {
-  "Version": 1,
-  "Events": [
-    {
-      "EventType": "HapticContinuous",
-      "Time": 0,
-      "EventDuration": 1.0,
-      "EventParameters": [
-        { "ParameterID": "HapticIntensity", "ParameterValue": 0.5 },
-        { "ParameterID": "HapticSharpness", "ParameterValue": 0.5 }
-      ]
-    }
-  ],
-  "ParameterCurves": [
-    {
-      "ParameterID": "HapticIntensity",
-      "Time": 0,
-      "ParameterCurveControlPoints": [
-        { "Time": 0.0, "ParameterValue": 0.2 },
-        { "Time": 1.0, "ParameterValue": 0.8 }
-      ]
-    }
-  ]
-};
+    });
+}
 
+// Listen for nav link clicks
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const page = link.getAttribute("data-page").replace('.html', '');
+    window.location.hash = page; // Update URL hash
+    loadPage(page);
+  });
+});
 
-navigator.haptic({ ahap: JSON.stringify({ Pattern: myAhap }) });
-    }
+// Listen for hash changes (e.g. user navigates via URL or back button)
+window.addEventListener("hashchange", () => {
+  const page = window.location.hash.slice(1);
+  loadPage(page);
+});
+
+window.toggleCode = function(button) {
+  const code = button.nextElementSibling;
+  if (code.style.display === "block") {
+    code.style.display = "none";
+    button.textContent = "Show code";
+  } else {
+    code.style.display = "block";
+    button.textContent = "Hide code";
+  }
+}
+
+// Initial load
+loadInitialPage();
+});
   </script>
 </body>
 </html>
