@@ -14,14 +14,14 @@
 
     header {
       position: fixed;
-      top: 0;
+      top: 0px;
       left: 0;
       right: 0;
       height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0px 20px;
       z-index: 999;
       /* position: relative; */
       background: var(--bg); 
@@ -44,7 +44,7 @@
   top: 50%;
   display: flex;
   gap: 30px; /* More spacing between items */
-  /* padding-top: 5px; */
+
 }
 
 nav a {
@@ -56,12 +56,12 @@ nav a {
   color: inherit;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content:center;
   line-height: 1; /* Ensures vertical centering */
   height: 20px;   /* Optional: uniform height */
-    padding-bottom: 5px;
-    border: 2px solid;
-     border-color: transparent;
+  padding-bottom: 5px;
+  border: 2px solid;
+  border-color: transparent;
 }
 
 /* Highlight active menu item */
@@ -108,13 +108,27 @@ body.light-mode nav a:hover {
   }
 }
 
+  @media (max-width: 430px) {
+  header {
+
+        padding: 30px 10px 0px 10px;
+  }
+  nav {
+  top: 65%;
+}
+
+.content {
+      padding-top: 50px;
+    }
+}
+
     @media (max-width: 600px) {
   nav .label {
     display: none;
   }
 
   nav a {
-    padding: 8px;        /* tighter spacing */
+    padding: 8px;     
     font-size: 1.5rem;   /* make emoji larger */
   }
 
@@ -123,9 +137,9 @@ body.light-mode nav a:hover {
     padding-left: 80px;
   }
 
-  header {
+  /* header {
     padding: 0 10px;
-  }
+  } */
 
   .logo {
     font-size: 20px;
