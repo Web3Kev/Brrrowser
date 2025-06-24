@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brrrowser Haptic API</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fff;
+      --fg: #111;
+      --accent: #3b82f6;
+      --code-bg: #f5f5f5;
+      --code-fg: #222;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111;
+        --fg: #eee;
+        --accent: #60a5fa;
+        --code-bg: #1e1e1e;
+        --code-fg: #f5f5f5;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.25rem;
+      color: var(--accent);
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    button.trigger {
+      display: block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .code-toggle {
+      background: none;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+      text-decoration: underline;
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      font-family: monospace;
+      padding: 0.75rem;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      display: none;
+      white-space: pre-wrap;
+      user-select: all;
+    }
+
+    .button-block {
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Brrrowser Haptic API</h1>
+
+  <div class="section">
+    <h2>navigator.vibrate</h2>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.vibrate(1000)">1 second vibration</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.vibrate(1000)</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.vibrate([50,300,500])">50ms + 300ms Pause + 500ms</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.vibrate([50,300,500])</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.vibrate([50,100,50,100,50,500,400,100,400,100,400,500,50,100,50,100,50])">SOS with 100ms & 500ms pauses</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.vibrate([50,100,50,100,50,500,
+        400,100,400,100,400,500,
+        50,100,50,100,50])</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.vibrate()">Stop all vibrations</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.vibrate()</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>navigator.haptic <small>(Brrrowser app exclusive)</small></h2>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('selection')">Trigger "selection"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("selection");</div>
+    </div>
+
+     <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('success')">Trigger "success"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("success");</div>
+    </div>
+
+     <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('warning')">Trigger "warning"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("warning");</div>
+    </div>
+
+     <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('error')">Trigger "error"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("error");</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('light')">Trigger "light"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("light");</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('medium')">Trigger "medium"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("medium");</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('heavy')">Trigger "heavy"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("heavy");</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('rigid')">Trigger "rigid"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("rigid");</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic('soft')">Trigger "soft"</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic("soft");</div>
+    </div>
+
+    <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic([{intensity:0.8,sharpness:0.2}])">Custom transient</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic([
+        {
+          intensity:0.8,
+          sharpness:0.2
+        }
+      ]);</div>
+    </div>
+
+     <div class="button-block">
+      <button class="trigger" onclick="navigator.haptic([{intensity:0.8,sharpness:0.2, duration:500}])">Custom continuous</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">navigator.haptic([
+        {
+          intensity:0.8,
+          sharpness:0.2, 
+          duration:500
+        }
+      ]);</div>
+    </div>
+  </div>
+
+   <!-- <div class="section">
+    <h2>Custom AHAP JSON</h2>
+
+    <div class="button-block">
+      <button class="trigger" onclick="triggerAHAP()">Play: Increasing Intensity</button>
+      <button class="code-toggle" onclick="toggleCode(this)">Show code</button>
+      <div class="code-block">
+const ahap = {
+  Pattern: {
+    Version: 1,
+    Events: [
+      {
+        EventType: "HapticContinuous",
+        Time: 0,
+        EventDuration: 2.0,
+        EventParameters: [
+          { ParameterID: "HapticSharpness", ParameterValue: 0.5 }
+        ]
+      }
+    ],
+    ParameterCurves: [
+      {
+        ParameterID: "HapticIntensity",
+        Time: 0,
+        ParameterCurveControlPoints: [
+          { Time: 0.0, ParameterValue: 0.1 },
+          { Time: 2.0, ParameterValue: 1.0 }
+        ]
+      }
+    ]
+  }
+};
+navigator.haptic(JSON.stringify(ahap));
+      </div>
+    </div>
+  </div> -->
+
+  <script>
+    function toggleCode(button) {
+      const code = button.nextElementSibling;
+      if (code.style.display === "block") {
+        code.style.display = "none";
+        button.textContent = "Show code";
+      } else {
+        code.style.display = "block";
+        button.textContent = "Hide code";
+      }
+    }
+
+    function triggerAHAP() {
+      // const myAhap = {
+      //   Pattern: {
+      //     Version: 1,
+      //     Events: [
+      //       {
+      //         EventType: "HapticContinuous",
+      //         Time: 0,
+      //         EventDuration: 2.0,
+      //         EventParameters: [
+      //           { ParameterID: "HapticSharpness", ParameterValue: 0.5 },
+      //           { ParameterID: "HapticIntensity", ParameterValue: 0.1 }
+      //         ]
+      //       }
+      //     ],
+      //     ParameterCurves: [
+      //       {
+      //         ParameterID: "HapticIntensity",
+      //         Time: 0,
+      //         ParameterCurveControlPoints: [
+      //           { Time: 0.0, ParameterValue: 0.1 },
+      //           { Time: 2.0, ParameterValue: 1.0 }
+      //         ]
+      //       }
+      //     ]
+      //   }
+      // };
+      const myAhap = {
+  "Version": 1,
+  "Events": [
+    {
+      "EventType": "HapticContinuous",
+      "Time": 0,
+      "EventDuration": 1.0,
+      "EventParameters": [
+        { "ParameterID": "HapticIntensity", "ParameterValue": 0.5 },
+        { "ParameterID": "HapticSharpness", "ParameterValue": 0.5 }
+      ]
+    }
+  ],
+  "ParameterCurves": [
+    {
+      "ParameterID": "HapticIntensity",
+      "Time": 0,
+      "ParameterCurveControlPoints": [
+        { "Time": 0.0, "ParameterValue": 0.2 },
+        { "Time": 1.0, "ParameterValue": 0.8 }
+      ]
+    }
+  ]
+};
+
+
+navigator.haptic({ ahap: JSON.stringify({ Pattern: myAhap }) });
+    }
+  </script>
+</body>
+</html>
