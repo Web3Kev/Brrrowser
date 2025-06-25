@@ -8,6 +8,12 @@ window.initFeaturedPage = function () {
       url: "https://haptic-brick.vercel.app"
     },
     {
+      title: "Haptic Music",
+      image: "./assets/hapmusic.jpg",
+      text: "'Haptic Music' is originally a Poimandres demo code. In this version, haptic feedbacks have been implemented and  are in sync with the music, played according to each track's gain as intensity.",
+      url: "https://hapticmusic.vercel.app/"
+    },
+    {
       title: "Stack over",
       image: "./assets/stackover.jpg",
       text: "'Stack Over' is a webgame in which the aim is to stack blocks as high as one can. Game made using R3F and Rapier's physics. ",
