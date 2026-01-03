@@ -1,0 +1,88 @@
+{
+    "version": "0.1B",
+    "sites":
+    [
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440004",
+            "title": "Elemental Serenity",
+            "url": "https://elemental-serenity.vercel.app",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/elemental.png",
+            "isFeatured": true,
+            "types": ["Haptic"]
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440000",
+            "title": "Stack Over",
+            "url": "https://stack-over-ar.vercel.app",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/stack.png",
+            "isFeatured": true,
+            "types": ["Game", "Haptic", "AR"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440001",
+            "title": "AR Painter",
+            "url": "https://threejs.org/examples/webxr_xr_paint.html",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/threejs.png",
+            "isFeatured": false,
+            "types": ["AR"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440002",
+            "title": "AR Hit Test",
+            "url": "https://hit-test-theta.vercel.app/",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/duck.png",
+            "isFeatured": false,
+            "types": ["AR"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440003",
+            "title": "Haptic Brick",
+            "url": "https://haptic-brick.vercel.app/",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/brick.png",
+            "isFeatured": true,
+            "types": ["Game", "Haptic"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440005",
+            "title": "Strolling Snowman",
+            "url": "https://strolling-snowman.vercel.app",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/snowman.png",
+            "isFeatured": false,
+            "types": ["Haptic","Game"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440006",
+            "title": "R3F Handle Demo",
+            "url": "https://pmndrs.github.io/xr/examples/editor/",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/pmndrs.png",
+            "isFeatured": false,
+            "types": ["AR"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440007",
+            "title": "AR Hit Test",
+            "url": "https://threejs.org/examples/webxr_ar_hittest.html",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/threejs.png",
+            "isFeatured": false,
+            "types": ["AR"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440008",
+            "title": "R3F UIKit Demo",
+            "url": "https://pmndrs.github.io/xr/examples/uikit/",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/pmndrs.png",
+            "isFeatured": false,
+            "types": ["AR"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440009",
+            "title": "Haptic Music",
+            "url": "https://hapticmusic.vercel.app",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/audio.png",
+            "isFeatured": false,
+            "types": ["Haptic"]
+        }
+
+        
+    ]
+}
