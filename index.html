@@ -14,7 +14,7 @@
 
     header {
       position: fixed;
-      top: 10px;
+      top: 0;
       left: 0;
       right: 0;
       height: 60px;
@@ -25,6 +25,11 @@
       z-index: 999;
       /* position: relative; */
       background: var(--bg); 
+    }
+
+    header.hide-children > * {
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .logo {
@@ -69,6 +74,8 @@ nav a.active {
   border: 2px solid;
 
 }
+
+
 
 /* White border in dark mode */
 body.dark-mode nav a.active {
@@ -359,6 +366,22 @@ window.toggleCode = function(button) {
     button.textContent = "Hide code";
   }
 };
+
+
+function updateHeaderChildrenVisibility() {
+  const header = document.querySelector("header");
+  const hash = window.location.hash;
+
+  if (hash.includes("hide")) {
+    header.classList.add("hide-children");
+  } else {
+    header.classList.remove("hide-children");
+  }
+}
+
+updateHeaderChildrenVisibility();
+window.addEventListener("hashchange", updateHeaderChildrenVisibility);
+
 
 loadInitialPage();
 </script>
