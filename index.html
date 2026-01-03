@@ -336,8 +336,12 @@ function loadPage(pageKey) {
 }
 
 function loadInitialPage() {
-  const hash = window.location.hash.slice(1) || 'home';
-  loadPage(hash);
+  // const hash = window.location.hash.slice(1) || 'home';
+  // loadPage(hash);
+  // Use .split('&')[0] to get only 'api' from '#api&hide'
+  const fullHash = window.location.hash.slice(1) || 'home';
+  const pageKey = fullHash.split('&')[0]; 
+  loadPage(pageKey);
 }
 
 // Navigation click handler
@@ -351,9 +355,18 @@ document.querySelectorAll("nav a").forEach(link => {
 });
 
 // Handle back/forward nav
+// window.addEventListener("hashchange", () => {
+//   // const page = window.location.hash.slice(1);
+//   const page = window.location.hash.slice(1).split('&')[0];
+//   loadPage(page);
+// });
 window.addEventListener("hashchange", () => {
-  const page = window.location.hash.slice(1);
-  loadPage(page);
+  const fullHash = window.location.hash.slice(1);
+  const pageKey = fullHash.split('&')[0]; 
+  loadPage(pageKey);
+  
+  // Also call the visibility update here
+  updateHeaderChildrenVisibility();
 });
 
 window.toggleCode = function(button) {
@@ -372,6 +385,7 @@ function updateHeaderChildrenVisibility() {
   const header = document.querySelector("header");
   const hash = window.location.hash;
 
+  // This correctly checks if "hide" exists anywhere in the URL hash
   if (hash.includes("hide")) {
     header.classList.add("hide-children");
   } else {
