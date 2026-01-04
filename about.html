@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Brrrowser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-blue: #ffa200;
+      --bg-black: #050505;
+      --card-gray: #1c1c1e;
+      --text-white: #ffffff;
+      --text-muted: #a1a1a6;
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --accent-gradient: linear-gradient(180deg, #e1850b 50%, #0d0e0e 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Logo & Header */
+    .hero {
+      margin-bottom: 4rem;
+    }
+
+    .logo-wrapper {
+      margin-bottom: 2rem;
+      display: inline-block;
+    }
+
+    .logo-wrapper img {
+      height: 110px;
+      border-radius: 24px;
+    }
+
+    /* 1. Added ID and default hidden state */
+    h1#app-title {
+      display: none; 
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Feature Grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .card {
+      background: var(--card-gray);
+      padding: 2.5rem 1.5rem;
+      border-radius: 24px;
+      text-align: left;
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-blue);
+      background: #242426;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .card code {
+      display: inline-block;
+      background: rgba(0, 122, 255, 0.1);
+      color: #58a6ff;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+    }
+
+    /* Contact Section */
+    .contact-cta {
+      margin-top: 5rem;
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, rgba(28, 28, 30, 0) 0%, rgba(28, 28, 30, 0.5) 100%);
+      border-radius: 32px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .contact-cta h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-cta p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .x-btn {
+      display: inline-flex;
+      align-items: center;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 99px;
+      font-weight: 700;
+      gap: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .x-btn:hover {
+      transform: scale(1.05);
+      background: #f0f0f0;
+    }
+
+    .x-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    footer {
+      margin-top: 5rem;
+      font-size: 0.85rem;
+      color: #48484a;
+      padding-bottom: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      h1#app-title { font-size: 2.75rem; }
+      .tagline { font-size: 1.1rem; }
+      .card { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header class="hero">
+    <div class="logo-wrapper" id="logo-container">
+      <img src="./assets/brrrowser.png" alt="Brrrowser App Icon" 
+           onerror="this.parentElement.style.display='none'; document.getElementById('app-title').style.display='block';">
+    </div>
+    
+    <h1 id="app-title">Brrrowser</h1>
+    
+    <p class="tagline">An iOS app enabling fullscreen web experiences, Web XR and enhanced haptics for interactive content.</p>
+  </header>
+
+  <main class="features">
+    <div class="card">
+      <h3>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-blue)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        WebXR Support
+      </h3>
+      <p>Bridge the gap on iOS. Brrrowser enables WebXR capabilities, allowing AR web apps to run natively.</p>
+    </div>
+
+    <div class="card">
+      <h3>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-blue)"><path d="M12 2v20M7 7l10 10M17 7L7 17"/></svg>
+        Web Haptics
+      </h3>
+      <p>Bring physical depth to your web apps using the standard <code>navigator.vibrate</code> or our custom <code>navigator.haptic</code> API for HD vibration.</p>
+    </div>
+
+    <div class="card">
+      <h3>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-blue)"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        Fullscreen Mode
+      </h3>
+      <p>Experience a fullscreen experience with no URL bar. Perfect for web-based games and interactive art demos.</p>
+    </div>
+  </main>
+
+  <section class="contact-cta">
+    <h2>Connect with us</h2>
+    <p>Suggestions, bug reports, or want to be featured on our landing page?</p>
+    <a href="https://x.com/HapticWebXR" class="x-btn" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+      Reach us on X
+    </a>
+  </section>
+
+  <footer>
+    &copy; 2026 Brrrowser App. All rights reserved.
+  </footer>
+</div>
+
+</body>
+</html>
