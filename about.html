@@ -48,6 +48,17 @@
       margin-top: 2rem;
     }
 
+    .xr-link {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .xr-link:hover {
+      text-decoration: underline;
+      filter: brightness(1.2); /* Makes it glow slightly on hover */
+    }
+
     .logo-wrapper {
       margin-bottom: 2rem;
       display: inline-block;
@@ -202,7 +213,9 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-blue)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         WebXR Support
       </h3>
-      <p>Bridge the gap on iOS. Brrrowser enables WebXR capabilities, allowing AR web apps to run natively.</p>
+      <p>Bridge the gap on iOS. Brrrowser enables WebXR capabilities, allowing AR web apps to run natively using the open source
+        <a href="https://github.com/wem-technology/ios-webxr" target="_blank" class="xr-link">iOS WebXR Polyfill</a>
+      </p>
     </div>
 
     <div class="card">
