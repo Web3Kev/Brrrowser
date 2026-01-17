@@ -81,6 +81,14 @@
             "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/audio.png",
             "isFeatured": false,
             "types": ["Haptic"]
+        },
+        {
+            "id": "671e8400-e29b-41d4-a716-446655440010",
+            "title": "Marble Race Remix",
+            "url": "https://marble-race-remix.vercel.app",
+            "imageURL": "https://web3kev.github.io/Brrrowser/featured/icons/marble.png",
+            "isFeatured": false,
+            "types": ["AR", "Game"]
         }
 
         
