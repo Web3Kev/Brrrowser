@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebXR & Web Haptics Link Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111; /* Space Gray Base */
+            color: #f4f4f5;
+        }
+
+        .orange-glow {
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.15);
+        }
+
+        .input-focus:focus {
+            border-color: #f97316;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.3);
+        }
+
+        #qrcode img {
+            margin: 0 auto;
+            border: 8px solid white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-xl w-full bg-[#1c1c1c] border border-zinc-800 rounded-3xl p-8 orange-glow">
+        <header class="text-center mb-10">
+            <!-- Brand Icon -->
+            <img 
+                src="../assets/IconBrrr.png" 
+                alt="Brrrowser Icon" 
+                class="mx-auto mb-6" 
+                style="width: 70px;"
+            >
+            
+            <h1 class="text-3xl font-bold mb-2 text-white">
+                Open WebXR & Web Haptics <span class="text-orange-500 text-lg block sm:inline">on iOS</span>
+            </h1>
+            <p class="text-zinc-400 text-sm">Create your WebXR Web Haptic Link below :</p>
+        </header>
+
+        <div class="space-y-6">
+            <!-- Input Section -->
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-2">Target Experience URL</label>
+                <input 
+                    type="text" 
+                    id="urlInput" 
+                    placeholder="https://your-experience.com?user=123"
+                    class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white input-focus transition-all"
+                >
+            </div>
+
+            <!-- Result Section -->
+            <div id="resultContainer" class="hidden space-y-6">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-2">Formatted Deep Link</label>
+                    <div class="flex items-center gap-2">
+                        <div class="relative flex-grow">
+                            <input 
+                                type="text" 
+                                id="formattedUrl" 
+                                readonly
+                                class="w-full bg-black/40 border border-zinc-700 rounded-xl pl-4 pr-12 py-3 text-sm text-orange-400 font-mono overflow-hidden whitespace-nowrap overflow-ellipsis"
+                            >
+                            <button 
+                                onclick="copyToClipboard()" 
+                                class="absolute right-2 top-1/2 -translate-y-1/2 p-2 hover:bg-zinc-700 rounded-lg transition-colors text-zinc-400"
+                                title="Copy to clipboard"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR Display -->
+                <div class="flex flex-col items-center justify-center p-6 bg-white/5 rounded-2xl border border-dashed border-zinc-800">
+                    <div id="qrcode"></div>
+                    <button 
+                        onclick="downloadQR()" 
+                        class="mt-6 flex items-center gap-2 text-sm font-semibold text-white bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg transition-colors border border-zinc-700"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        Download QR Code
+                    </button>
+                </div>
+
+                <!-- Action Button -->
+                <div id="mobileSafariAction" class="hidden">
+                    <button 
+                        onclick="openExperience()" 
+                        class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-900/40 transition-all flex items-center justify-center gap-2"
+                    >
+                        <span>Open Experience</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                    </button>
+                </div>
+                
+                <div id="nonSafariNotice" class="text-center text-zinc-500 text-xs italic px-4">
+                    Note: "Open Experience" button only appears on iOS/iPadOS Safari for deep-link compatibility.
+                </div>
+            </div>
+        </div>
+
+        <div id="statusMsg" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-orange-600 text-white px-6 py-2 rounded-full text-sm font-medium opacity-0 transition-opacity pointer-events-none z-50">
+            Link Copied!
+        </div>
+    </div>
+
+    <script>
+        const urlInput = document.getElementById('urlInput');
+        const formattedUrlEl = document.getElementById('formattedUrl');
+        const resultContainer = document.getElementById('resultContainer');
+        const qrcodeContainer = document.getElementById('qrcode');
+        const mobileSafariAction = document.getElementById('mobileSafariAction');
+        const nonSafariNotice = document.getElementById('nonSafariNotice');
+        
+        let qrcode = new QRCode(qrcodeContainer, {
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        function isIOSorIPadSafari() {
+            const ua = window.navigator.userAgent;
+            const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const isSafari = /Safari/.test(ua) && !/Chrome|CriOS|FxiOS|EdgiOS/.test(ua);
+            return isIOS && isSafari;
+        }
+
+        function updateUI() {
+            const val = urlInput.value.trim();
+            if (!val) {
+                resultContainer.classList.add('hidden');
+                return;
+            }
+
+            try {
+                const targetUrl = val.startsWith('http') ? val : `https://${val}`;
+                const encodedUrl = encodeURIComponent(targetUrl);
+                const finalUrl = `https://web3kev.github.io/view/?url=${encodedUrl}`;
+                
+                formattedUrlEl.value = finalUrl;
+                resultContainer.classList.remove('hidden');
+                
+                qrcode.clear();
+                qrcode.makeCode(finalUrl);
+
+                if (isIOSorIPadSafari()) {
+                    mobileSafariAction.classList.remove('hidden');
+                    nonSafariNotice.classList.add('hidden');
+                } else {
+                    mobileSafariAction.classList.add('hidden');
+                    nonSafariNotice.classList.remove('hidden');
+                }
+            } catch (e) {
+                console.error("Invalid URL format");
+            }
+        }
+
+        urlInput.addEventListener('input', updateUI);
+
+        function copyToClipboard() {
+            formattedUrlEl.select();
+            document.execCommand('copy');
+            
+            const msg = document.getElementById('statusMsg');
+            msg.style.opacity = '1';
+            setTimeout(() => {
+                msg.style.opacity = '0';
+            }, 2000);
+        }
+
+        function downloadQR() {
+            const img = qrcodeContainer.querySelector('img');
+            if (!img) return;
+            
+            const link = document.createElement('a');
+            link.download = 'webxr-haptics-qr.png';
+            link.href = img.src;
+            link.click();
+        }
+
+        function openExperience() {
+            const url = formattedUrlEl.value;
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
